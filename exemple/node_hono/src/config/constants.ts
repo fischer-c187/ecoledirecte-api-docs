@@ -9,4 +9,5 @@ export const ECOLEDIRECTE_URL = {
   doubleAuth: "connexion/doubleauth.awp",
   cahierDeTexte: "Eleves/{eleveId}/cahierdetexte.awp",
   cahierDeTexteDate: "Eleves/{eleveId}/cahierdetexte/{date}.awp",
+  notes: "eleves/{eleveId}/notes.awp",
 };

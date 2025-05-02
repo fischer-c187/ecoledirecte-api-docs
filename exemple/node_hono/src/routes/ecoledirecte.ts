@@ -94,9 +94,6 @@ ecoleDirecteRoutes.post("/login", async (c) => {
       choiceBase64
     );
 
-    // Get a new GTK and login with QCM data
-    const newGtkData = await ecoleDirecteService.getGTK();
-
     const finalLoginData = {
       username,
       password,
@@ -106,7 +103,7 @@ ecoleDirecteRoutes.post("/login", async (c) => {
     };
 
     // Final login
-    loginResponse = await ecoleDirecteService.login(newGtkData, finalLoginData);
+    loginResponse = await ecoleDirecteService.login(gtkData, finalLoginData);
 
     return c.json({
       success: true,
@@ -159,6 +156,26 @@ ecoleDirecteRoutes.get("/assignments/:studentId/:date", async (c) => {
     );
 
     return c.json(assignmentData);
+  } catch (error) {
+    return c.json({ error: (error as Error).message }, 500);
+  }
+});
+
+ecoleDirecteRoutes.get("/notes/:studentId", async (c) => {
+  try {
+    const studentId = c.req.param("studentId");
+    const token = c.req.header("Authorization");
+
+    if (!token) {
+      return c.json({ error: "Authorization token missing in header" }, 401);
+    }
+
+    const notesData = await ecoleDirecteService.getNotes(
+      Number(studentId),
+      token
+    );
+
+    return c.json(notesData);
   } catch (error) {
     return c.json({ error: (error as Error).message }, 500);
   }

@@ -22,7 +22,6 @@ export class EcoleDirecteService {
   ): Promise<EcoleDirecteResponse<T>> {
     const form = new URLSearchParams();
     form.append("data", JSON.stringify(data));
-
     const response = await fetch(
       getEndpointUrl(endpoint, pathParams, method, queryParams),
       {
@@ -46,7 +45,6 @@ export class EcoleDirecteService {
         headers: getBaseHeaders(),
       }
     );
-
     const setCookie = response.headers.get("set-cookie");
     if (!setCookie) {
       throw new Error("No cookie found in the response");
@@ -70,6 +68,7 @@ export class EcoleDirecteService {
       motdepasse: credentials.password,
       isReLogin: credentials.isReLogin,
       uuid: credentials.uuid,
+      sesouvenirdemoi: true,
       ...(credentials.fa && { fa: credentials.fa }),
     };
 
@@ -134,6 +133,17 @@ export class EcoleDirecteService {
       { eleveId: studentId, date },
       "get",
       {},
+      token
+    );
+    return result.data;
+  }
+
+  async getNotes(studentId: number, token: string): Promise<any> {
+    const result = await this.request<any>(
+      "notes",
+      { eleveId: studentId },
+      "get",
+      { anneeScolaire: "" },
       token
     );
     return result.data;
