@@ -214,8 +214,7 @@ Voici un récapitulatif du flux complet d'authentification à l'API EcoleDirecte
 | 3️⃣    | **Double authentification** (si code 250) | -                                              | Conservation du token temporaire |
 | 3️⃣a   | **Récupération du QCM**                   | POST `/v3/connexion/doubleauth.awp?verbe=get`  | Token temporaire en en-tête      |
 | 3️⃣b   | **Réponse au QCM**                        | POST `/v3/connexion/doubleauth.awp?verbe=post` | Réponse encodée en Base64        |
-| 4️⃣    | **Nouveau GTK**                           | GET `/v3/login.awp?gtk=1&v=4.77.5`             | Comme l'étape 1                  |
-| 5️⃣    | **Connexion finale**                      | POST `/v3/login.awp?v=4.77.5`                  | Avec valeurs `cn` et `cv`        |
+| 4️⃣    | **Connexion finale**                      | POST `/v3/login.awp?v=4.77.5`                  | Avec valeurs `cn` et `cv`        |
 
 > [!NOTE]
 > Les valeurs `cn` et `cv` obtenues après la double authentification peuvent être conservées pour éviter d'avoir à répondre au QCM lors des futures connexions.
